@@ -32,11 +32,13 @@ namespace EasySlideVerification
         /// </summary>
         public SlideVerificationInfo Create()
         {
-            SlideVerificationParam param = new SlideVerificationParam();
-            param.BackgroundImage = BackgroundImageProvider.Instance.GetRandomOne();
-            param.SlideImage = SlideImageProvider.Instance.GetRandomOne();
-            param.Edge = SlideVerificationOptions.Default.Edge;
-            param.MixedCount = SlideVerificationOptions.Default.MixedCount;
+            SlideVerificationParam param = new SlideVerificationParam()
+            {
+                BackgroundImage = BackgroundImageProvider.Instance.GetRandomOne(),
+                SlideImage = SlideImageProvider.Instance.GetRandomOne(),
+                Edge = SlideVerificationOptions.Default.Edge,
+                MixedCount = SlideVerificationOptions.Default.MixedCount,
+            };
             SlideVerificationInfo result = SlideVerificationCreater.Instance.Create(param);
 
             this.store.Add(result, SlideVerificationOptions.Default.Expire);
@@ -57,9 +59,15 @@ namespace EasySlideVerification
             if (data == null) return false;
 
             int accept = SlideVerificationOptions.Default.AcceptableDeviation;
+            bool success = x > data.OffsetX - accept && x < data.OffsetX + accept
+                        && y > data.OffsetY - accept && y < data.OffsetY + accept;
+            //验证成功，移除缓存
+            if (success)
+            {
+                this.store.Remove(key);
+            }
 
-            return x > data.OffsetX - accept && x < data.OffsetX + accept
-                && y > data.OffsetY - accept && y < data.OffsetY + accept;
+            return success;
         }
 
     }
