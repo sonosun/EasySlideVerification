@@ -33,8 +33,8 @@ namespace EasySlideVerification.Common
             SlideVerificationInfo result = new SlideVerificationInfo();
             result.Key = Guid.NewGuid().ToString("N");
 
-            using (Image coverImage = GetImage(param.SlideImage))
-            using (Image sourceImage = GetImage(param.BackgroundImage))
+            using (Bitmap coverImage = GetImage(param.SlideImage))
+            using (Bitmap sourceImage = GetImage(param.BackgroundImage))
             {
                 int coverWidth = coverImage.Width;
                 int coverHeight = coverImage.Height;
@@ -46,16 +46,7 @@ namespace EasySlideVerification.Common
                 result.OffsetY = offsetY;
 
                 //滑块图片
-                using (Image slideImage = CaptureImage(sourceImage, offsetX, offsetY, coverWidth, coverHeight))
-                {
-                    using (Graphics graphics = Graphics.FromImage(slideImage))
-                    {
-                        graphics.DrawImage(coverImage, 0, 0, coverWidth, coverHeight);
-                        graphics.Save();
-                    }
-
-                    result.SlideImage = ImageToByteArr(slideImage, ImageFormat.Png);
-                }
+                result.SlideImage = CaptureImage(sourceImage, coverImage, offsetX, offsetY);
 
                 //背景图片
                 using (Graphics graphics = Graphics.FromImage(sourceImage))
@@ -65,31 +56,23 @@ namespace EasySlideVerification.Common
                 }
 
                 //画混淆图
-                DrawMix(sourceImage, coverImage, param.MixedCount);
+                DrawMix(sourceImage, coverImage, param.MixedCount, offsetX, offsetY);
 
                 result.BackgroudImage = ImageToByteArr(sourceImage, ImageFormat.Jpeg);
             }
 
             return result;
         }
-
+        
         /// <summary>
         /// 画混淆图
         /// </summary>
-        /// <param name="mixImageByteArr"></param>
         /// <param name="sourceImage"></param>
-        private void DrawMix(byte[] mixImageByteArr, Image sourceImage, int count)
-        {
-            if (mixImageByteArr != null)
-            {
-                using (Image mixImage = GetImage(mixImageByteArr))
-                {
-                    DrawMix(sourceImage, mixImage, count);
-                }
-            }
-        }
-
-        private void DrawMix(Image sourceImage, Image mixImage, int count)
+        /// <param name="mixImage"></param>
+        /// <param name="count"></param>
+        /// <param name="slideOffsetX"></param>
+        /// <param name="slideOffsetY"></param>
+        private void DrawMix(Image sourceImage, Image mixImage, int count, int slideOffsetX, int slideOffsetY)
         {
             using (Graphics graphics = Graphics.FromImage(sourceImage))
             {
@@ -98,7 +81,13 @@ namespace EasySlideVerification.Common
                 for (int i = 0; i < count; i++)
                 {
                     int offsetX = random.Next(mixImage.Width, sourceImage.Width - mixImage.Width);
-                    int offsetY = random.Next(mixImage.Height, sourceImage.Height - mixImage.Height);
+                    while (Math.Abs(offsetX - slideOffsetX) < coverWidth * 2)
+                    {
+                        offsetX = random.Next(mixImage.Width, sourceImage.Width - mixImage.Width);
+                    }
+
+                    //int offsetY = random.Next(mixImage.Height, sourceImage.Height - mixImage.Height);
+                    int offsetY = slideOffsetY;
 
                     graphics.DrawImage(mixImage, offsetX, offsetY, coverWidth, coverHeight);
                     graphics.Save();
@@ -111,11 +100,11 @@ namespace EasySlideVerification.Common
         /// </summary>
         /// <param name="imageByteArr"></param>
         /// <returns></returns>
-        protected Image GetImage(byte[] imageByteArr)
+        protected Bitmap GetImage(byte[] imageByteArr)
         {
             using (var stream = new MemoryStream(imageByteArr))
             {
-                return Bitmap.FromStream(stream);
+                return Bitmap.FromStream(stream) as Bitmap;
             }
         }
 
@@ -161,18 +150,47 @@ namespace EasySlideVerification.Common
         /// <param name="width">保存图片的宽度</param>
         /// <param name="height">保存图片的高度</param>
         /// <returns></returns>
-        private Image CaptureImage(Image fromImage, int offsetX, int offsetY, int width, int height)
+        private byte[] CaptureImage(Image fromImage, int offsetX, int offsetY, int width, int height)
         {
             //创建新图位图
-            Bitmap bitmap = new Bitmap(width, height);
+            using (Bitmap bitmap = new Bitmap(width, height))
             //创建作图区域
             using (Graphics graphic = Graphics.FromImage(bitmap))
             {
                 //截取原图相应区域写入作图区
                 graphic.DrawImage(fromImage, 0, 0, new Rectangle(offsetX, offsetY, width + 6, height + 6), GraphicsUnit.Pixel);
-                //graphic.DrawRectangle(Pens.Black, 0, 0, width - 1, height - 1);
                 graphic.Save();
-                return bitmap;
+
+                return ImageToByteArr(bitmap, ImageFormat.Png);
+            }
+        }
+
+        /// <summary>
+        /// 从大图中根据像素点，生成图片，作为拼图块
+        /// </summary>
+        /// <param name="backgroudImage"></param>
+        /// <param name="coverImage"></param>
+        /// <param name="offsetX"></param>
+        /// <param name="offsetY"></param>
+        /// <returns></returns>
+        private byte[] CaptureImage(Bitmap backgroudImage, Bitmap coverImage, int offsetX, int offsetY)
+        {
+            //创建新图位图
+            using (Bitmap bitmap = new Bitmap(coverImage.Width, coverImage.Height))
+            {
+                for (int y = 0; y < coverImage.Height; y++)
+                {
+                    for (int x = 0; x < coverImage.Width; x++)
+                    {
+                        var pointColor = coverImage.GetPixel(x, y);
+                        if (pointColor.A != 0)
+                        {
+                            bitmap.SetPixel(x, y, backgroudImage.GetPixel(offsetX + x, offsetY + y));
+                        }
+                    }
+                }
+
+                return ImageToByteArr(bitmap, ImageFormat.Png);
             }
         }
     }
