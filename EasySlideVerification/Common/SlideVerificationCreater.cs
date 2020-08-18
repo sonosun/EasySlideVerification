@@ -36,34 +36,42 @@ namespace EasySlideVerification.Common
             using (Bitmap coverImage = GetImage(param.SlideImage))
             using (Bitmap sourceImage = GetImage(param.BackgroundImage))
             {
-                int coverWidth = coverImage.Width;
-                int coverHeight = coverImage.Height;
-
-                int offsetX = random.Next(coverImage.Width, sourceImage.Width - coverImage.Width - param.Edge);
-                int offsetY = random.Next(coverImage.Height, sourceImage.Height - coverImage.Height);
-
-                result.OffsetX = offsetX;
-                result.OffsetY = offsetY;
+                result.OffsetX = random.Next(coverImage.Width, sourceImage.Width - coverImage.Width - param.Edge);
+                result.OffsetY = random.Next(coverImage.Height, sourceImage.Height - coverImage.Height);
 
                 //滑块图片
-                result.SlideImage = CaptureImage(sourceImage, coverImage, offsetX, offsetY);
-
+                result.SlideImage = CaptureImage(sourceImage, coverImage, result.OffsetX, result.OffsetY);
                 //背景图片
-                using (Graphics graphics = Graphics.FromImage(sourceImage))
-                {
-                    graphics.DrawImage(coverImage, offsetX, offsetY, coverWidth, coverHeight);
-                    graphics.Save();
-                }
-
-                //画混淆图
-                DrawMix(sourceImage, coverImage, param.MixedCount, offsetX, offsetY);
-
-                result.BackgroudImage = ImageToByteArr(sourceImage, ImageFormat.Jpeg);
+                result.BackgroudImage = DrawBackground(sourceImage, coverImage, result.OffsetX, result.OffsetY, param.MixedCount);
             }
 
             return result;
         }
-        
+
+        /// <summary>
+        /// 画背景图
+        /// </summary>
+        /// <param name="sourceImage"></param>
+        /// <param name="coverImage"></param>
+        /// <param name="offsetX"></param>
+        /// <param name="offsetY"></param>
+        /// <param name="mixedCount"></param>
+        /// <returns></returns>
+        private byte[] DrawBackground(Bitmap sourceImage, Bitmap coverImage, int offsetX, int offsetY, int mixedCount)
+        {
+            //背景图片
+            using (Graphics graphics = Graphics.FromImage(sourceImage))
+            {
+                graphics.DrawImage(coverImage, offsetX, offsetY, coverImage.Width, coverImage.Height);
+                graphics.Save();
+            }
+
+            //画混淆图
+            DrawMix(sourceImage, coverImage, mixedCount, offsetX, offsetY);
+
+            return ImageToByteArr(sourceImage, ImageFormat.Jpeg);
+        }
+
         /// <summary>
         /// 画混淆图
         /// </summary>
@@ -96,7 +104,7 @@ namespace EasySlideVerification.Common
         }
 
         /// <summary>
-        /// 
+        /// byte数组转Image
         /// </summary>
         /// <param name="imageByteArr"></param>
         /// <returns></returns>
