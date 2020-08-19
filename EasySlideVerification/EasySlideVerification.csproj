@@ -15,13 +15,7 @@
     <None Update="App_Data\Images\Slide\bg-s.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="App_Data\Images\Slide\slide-1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="App_Data\Images\Slide\slide-2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="App_Data\Images\Slide\slide-3.png">
+    <None Update="App_Data\Images\Slide\slide-01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
