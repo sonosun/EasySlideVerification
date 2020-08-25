@@ -29,10 +29,10 @@ namespace EasySlideVerification.Store
         public void Add(SlideVerificationInfo data, TimeSpan expire)
         {
             HashEntry[] entries = new HashEntry[] {
-                new HashEntry("BackgroudImage",data.BackgroudImage),
-                new HashEntry("SlideImage",data.SlideImage),
-                new HashEntry("OffsetX",data.OffsetX),
-                new HashEntry("OffsetY",data.OffsetY),
+                new HashEntry("BackgroudImage",data.BackgroundImg),
+                new HashEntry("SlideImage",data.SlideImg),
+                new HashEntry("OffsetX",data.PositionX),
+                new HashEntry("OffsetY",data.PositionY),
             };
             this.store.HashSet($"{SlideVerificationRedisOptions.Default.KeyPrefix}{data.Key}", entries);
             this.store.KeyExpire($"{SlideVerificationRedisOptions.Default.KeyPrefix}{data.Key}", expire);
@@ -50,10 +50,10 @@ namespace EasySlideVerification.Store
             if (entries != null && entries.Length > 0)
             {
                 result = new SlideVerificationInfo();
-                result.BackgroudImage = entries.First(a => a.Name == "BackgroudImage").Value;
-                result.SlideImage = entries.First(a => a.Name == "SlideImage").Value;
-                result.OffsetX = entries.First(a => a.Name == "OffsetX").Value.ToString().ToInt();
-                result.OffsetY = entries.First(a => a.Name == "OffsetY").Value.ToString().ToInt();
+                result.BackgroundImg = entries.First(a => a.Name == "BackgroudImage").Value;
+                result.SlideImg = entries.First(a => a.Name == "SlideImage").Value;
+                result.PositionX = entries.First(a => a.Name == "OffsetX").Value.ToString().ToInt();
+                result.PositionY = entries.First(a => a.Name == "OffsetY").Value.ToString().ToInt();
             }
 
             return result;

@@ -59,8 +59,8 @@ namespace EasySlideVerification
             if (data == null) return false;
 
             int accept = SlideVerificationOptions.Default.AcceptableDeviation;
-            bool success = x > data.OffsetX - accept && x < data.OffsetX + accept
-                        && y > data.OffsetY - accept && y < data.OffsetY + accept;
+            bool success = x > data.PositionX - accept && x < data.PositionX + accept
+                        && y > data.PositionY - accept && y < data.PositionY + accept;
             //验证成功，移除缓存
             if (success)
             {
@@ -69,6 +69,5 @@ namespace EasySlideVerification
 
             return success;
         }
-
     }
 }

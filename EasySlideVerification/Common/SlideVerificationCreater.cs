@@ -33,16 +33,20 @@ namespace EasySlideVerification.Common
             SlideVerificationInfo result = new SlideVerificationInfo();
             result.Key = Guid.NewGuid().ToString("N");
 
-            using (Bitmap coverImage = GetImage(param.SlideImage))
-            using (Bitmap sourceImage = GetImage(param.BackgroundImage))
+            using (Bitmap coverImage = ImageUtil.GetImage(param.SlideImage))
+            using (Bitmap sourceImage = ImageUtil.GetImage(param.BackgroundImage))
             {
-                result.OffsetX = random.Next(coverImage.Width, sourceImage.Width - coverImage.Width - param.Edge);
-                result.OffsetY = random.Next(coverImage.Height, sourceImage.Height - coverImage.Height);
+                result.BgWidth = sourceImage.Width;
+                result.BgHeight = sourceImage.Height;
+                result.SlideWidth = coverImage.Width;
+                result.SlideHeight = coverImage.Height;
+                result.PositionX = random.Next(coverImage.Width, sourceImage.Width - coverImage.Width - param.Edge);
+                result.PositionY = random.Next(coverImage.Height, sourceImage.Height - coverImage.Height);
 
                 //滑块图片
-                result.SlideImage = CaptureImage(sourceImage, coverImage, result.OffsetX, result.OffsetY);
+                result.SlideImg = CaptureImage(sourceImage, coverImage, result.PositionX, result.PositionY);
                 //背景图片
-                result.BackgroudImage = DrawBackground(sourceImage, coverImage, result.OffsetX, result.OffsetY, param.MixedCount);
+                result.BackgroundImg = DrawBackground(sourceImage, coverImage, result.PositionX, result.PositionY, param.MixedCount);
             }
 
             return result;
@@ -53,23 +57,23 @@ namespace EasySlideVerification.Common
         /// </summary>
         /// <param name="sourceImage"></param>
         /// <param name="coverImage"></param>
-        /// <param name="offsetX"></param>
-        /// <param name="offsetY"></param>
+        /// <param name="positionX"></param>
+        /// <param name="positionY"></param>
         /// <param name="mixedCount"></param>
         /// <returns></returns>
-        private byte[] DrawBackground(Bitmap sourceImage, Bitmap coverImage, int offsetX, int offsetY, int mixedCount)
+        private byte[] DrawBackground(Bitmap sourceImage, Bitmap coverImage, int positionX, int positionY, int mixedCount)
         {
             //背景图片
             using (Graphics graphics = Graphics.FromImage(sourceImage))
             {
-                graphics.DrawImage(coverImage, offsetX, offsetY, coverImage.Width, coverImage.Height);
+                graphics.DrawImage(coverImage, positionX, positionY, coverImage.Width, coverImage.Height);
                 graphics.Save();
             }
 
             //画混淆图
-            DrawMix(sourceImage, coverImage, mixedCount, offsetX, offsetY);
+            DrawMix(sourceImage, coverImage, mixedCount, positionX, positionY);
 
-            return ImageToByteArr(sourceImage, ImageFormat.Jpeg);
+            return ImageUtil.ImageToByteArr(sourceImage, ImageFormat.Jpeg);
         }
 
         /// <summary>
@@ -78,9 +82,9 @@ namespace EasySlideVerification.Common
         /// <param name="sourceImage"></param>
         /// <param name="mixImage"></param>
         /// <param name="count"></param>
-        /// <param name="slideOffsetX"></param>
-        /// <param name="slideOffsetY"></param>
-        private void DrawMix(Image sourceImage, Image mixImage, int count, int slideOffsetX, int slideOffsetY)
+        /// <param name="slidePositionX"></param>
+        /// <param name="slidePositionY"></param>
+        private void DrawMix(Image sourceImage, Image mixImage, int count, int slidePositionX, int slidePositionY)
         {
             using (Graphics graphics = Graphics.FromImage(sourceImage))
             {
@@ -89,64 +93,18 @@ namespace EasySlideVerification.Common
                 for (int i = 0; i < count; i++)
                 {
                     int offsetX = random.Next(mixImage.Width, sourceImage.Width - mixImage.Width);
-                    while (Math.Abs(offsetX - slideOffsetX) < coverWidth * 2)
+                    while (Math.Abs(offsetX - slidePositionX) < coverWidth * 2)
                     {
                         offsetX = random.Next(mixImage.Width, sourceImage.Width - mixImage.Width);
                     }
 
                     //int offsetY = random.Next(mixImage.Height, sourceImage.Height - mixImage.Height);
-                    int offsetY = slideOffsetY;
+                    int offsetY = slidePositionY;
 
                     graphics.DrawImage(mixImage, offsetX, offsetY, coverWidth, coverHeight);
                     graphics.Save();
                 }
             }
-        }
-
-        /// <summary>
-        /// byte数组转Image
-        /// </summary>
-        /// <param name="imageByteArr"></param>
-        /// <returns></returns>
-        protected Bitmap GetImage(byte[] imageByteArr)
-        {
-            using (var stream = new MemoryStream(imageByteArr))
-            {
-                return Bitmap.FromStream(stream) as Bitmap;
-            }
-        }
-
-        /// <summary>
-        /// Image转Byte数组
-        /// </summary>
-        /// <param name="sourceImage"></param>
-        /// <returns></returns>
-        protected byte[] ImageToByteArr(Image sourceImage, ImageFormat format)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                sourceImage.Save(stream, format);
-                byte[] buffer = new byte[stream.Length];
-                stream.Position = 0;
-                stream.Read(buffer, 0, buffer.Length);
-                stream.Close();
-
-                return buffer;
-            }
-        }
-
-        /// <summary>
-        /// Image转base64
-        /// </summary>
-        /// <param name="sourceImage"></param>
-        /// <returns></returns>
-        protected string ImageToBase64(Image sourceImage, ImageFormat format)
-        {
-            byte[] buffer = ImageToByteArr(sourceImage, format);
-            StringBuilder result = new StringBuilder();
-            result.Append($"data:image/{format};base64,");
-            result.Append(Convert.ToBase64String(buffer));
-            return result.ToString();
         }
 
         /// <summary>
@@ -169,7 +127,7 @@ namespace EasySlideVerification.Common
                 graphic.DrawImage(fromImage, 0, 0, new Rectangle(offsetX, offsetY, width + 6, height + 6), GraphicsUnit.Pixel);
                 graphic.Save();
 
-                return ImageToByteArr(bitmap, ImageFormat.Png);
+                return ImageUtil.ImageToByteArr(bitmap, ImageFormat.Png);
             }
         }
 
@@ -198,7 +156,7 @@ namespace EasySlideVerification.Common
                     }
                 }
 
-                return ImageToByteArr(bitmap, ImageFormat.Png);
+                return ImageUtil.ImageToByteArr(bitmap, ImageFormat.Png);
             }
         }
     }

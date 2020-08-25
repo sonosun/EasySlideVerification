@@ -15,6 +15,7 @@ namespace EasySlideVerification
         public static readonly SlideVerificationOptions Default = new SlideVerificationOptions()
         {
             AcceptableDeviation = 5,
+            Expire = new TimeSpan(0, 10, 0),
         };
 
         /// <summary>

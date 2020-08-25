@@ -15,65 +15,43 @@ namespace EasySlideVerification.Model
         public string Key { get; set; }
 
         /// <summary>
-        /// 背景图片（base64图片数据）
+        /// 背景图片（byte数组图片数据）
         /// </summary>
-        public byte[] BackgroudImage { get; set; }
+        public byte[] BackgroundImg { get; set; }
 
         /// <summary>
-        /// 滑块图片（base64图片数据）
+        /// 滑块图片（byte数组图片数据）
         /// </summary>
-        public byte[] SlideImage { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int OffsetX { get; set; }
+        public byte[] SlideImg { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int OffsetY { get; set; }
-
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class SlideVerificationPlainInfo
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Key { get; set; }
-
-        /// <summary>
-        /// 背景图片（base64图片数据）
-        /// </summary>
-        public string BackgroudImage { get; set; }
-
-        /// <summary>
-        /// 滑块图片（base64图片数据）
-        /// </summary>
-        public string SlideImage { get; set; }
+        public int PositionX { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int OffsetX { get; set; }
+        public int PositionY { get; set; }
 
         /// <summary>
         /// 
-        /// </summary>
-        public int OffsetY { get; set; }
-
-        /// <summary>
-        /// 背景图片高度
         /// </summary>
         public int BgHeight { get; set; }
 
         /// <summary>
-        /// 背景图片宽度
+        /// 
         /// </summary>
         public int BgWidth { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int SlideHeight { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int SlideWidth { get; set; }
     }
 }
