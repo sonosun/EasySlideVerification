@@ -31,7 +31,7 @@ namespace EasySlideVerificationDemoServer.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 创建图片滑动数据
         /// </summary>
         /// <returns></returns>
         public ActionResult<SlideVerificationPlainInfo> GetVerification()
@@ -42,21 +42,19 @@ namespace EasySlideVerificationDemoServer.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 校验
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        public ActionResult<bool> Verify(VerifyParam param)
+        public ActionResult<bool> Verify([FromBody]VerifyParam param)
         {
-            var result = this.verifyService.Validate(param.key, param.OffsetX, param.OffsetY);
-            return result;
+            return this.verifyService.Validate(param);
         }
-
-
+        
         /// <summary>
-        /// 创建图片滑动数据
+        /// 图片由byte[]转换为base64字符串
         /// </summary>
-        public SlideVerificationPlainInfo ConvertToBase64PlainInfo(SlideVerificationInfo data)
+        private SlideVerificationPlainInfo ConvertToBase64PlainInfo(SlideVerificationInfo data)
         {
             SlideVerificationPlainInfo result = SlideVerificationPlainInfo.From(data);
             if (result != null)
@@ -69,44 +67,6 @@ namespace EasySlideVerificationDemoServer.Controllers
 
             return result;
         }
-
-        ///// <summary>
-        ///// 创建图片滑动数据
-        ///// </summary>
-        //public SlideVerificationPlainInfo ConvertToPlainInfo(SlideVerificationInfo data)
-        //{
-        //    SlideVerificationPlainInfo result = SlideVerificationPlainInfo.From(data);
-        //    if (result != null)
-        //    {
-        //        result.BackgroundImg = $"/Home/GetBackgroundImage?key={data.Key}";
-        //        result.SlideImg = $"/Home/GetSlideImage?key={data.Key}";
-        //        //PositionX 不能输出到前端
-        //        result.PositionX = 0;
-        //    };
-
-        //    return result;
-        //}
-
-        //public IActionResult GetBackgroundImage(string key)
-        //{
-        //    var img = this.verifyService.GetBackgroundImage(key);
-        //    return this.File(img, "image/jpeg");
-        //}
-
-        //public IActionResult GetSlideImage(string key)
-        //{
-        //    var img = this.verifyService.GetSlideImage(key);
-        //    return this.File(img, "image/png");
-        //}
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public class VerifyParam
-    {
-        public string key { get; set; }
-        public int OffsetX { get; set; }
-        public int OffsetY { get; set; }
-    }
 }

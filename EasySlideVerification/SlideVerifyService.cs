@@ -53,18 +53,18 @@ namespace EasySlideVerification
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public bool Validate(string key, int x, int y)
+        public bool Validate(VerifyParam param)
         {
-            var data = this.store.Get(key);
+            var data = this.store.Get(param.Key);
             if (data == null) return false;
 
             int accept = SlideVerificationOptions.Default.AcceptableDeviation;
-            bool success = x > data.PositionX - accept && x < data.PositionX + accept
-                        && y > data.PositionY - accept && y < data.PositionY + accept;
+            bool success = param.PositionX > data.PositionX - accept && param.PositionX < data.PositionX + accept
+                        && param.PositionY > data.PositionY - accept && param.PositionY < data.PositionY + accept;
             //验证成功，移除缓存
-            if (success)
+            if (success && param.RemoveIfSuccess)
             {
-                this.store.Remove(key);
+                this.store.Remove(param.Key);
             }
 
             return success;

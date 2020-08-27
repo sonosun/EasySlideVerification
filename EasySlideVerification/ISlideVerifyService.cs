@@ -14,14 +14,12 @@ namespace EasySlideVerification
         /// 创建图片滑动数据(图片以byte数组格式返回)
         /// </summary>
         SlideVerificationInfo Create();
-        
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="param"></param>
         /// <returns></returns>
-        bool Validate(string key, int x, int y);
+        bool Validate(VerifyParam param);
     }
 }
