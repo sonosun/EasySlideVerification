@@ -137,6 +137,8 @@ Slider.prototype = {
             this.verifyFunc(data, function (success) {
                 if (success) {
                     $("#slidePath", that.container).addClass("success");
+                } else {
+                    $("#slidePath", that.container).removeClass("success");
                 }
             });
         }
