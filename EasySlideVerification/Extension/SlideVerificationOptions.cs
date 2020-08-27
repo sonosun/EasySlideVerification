@@ -24,6 +24,11 @@ namespace EasySlideVerification
         public List<string> BackgroundImages { get; set; }
 
         /// <summary>
+        /// 滑块图
+        /// </summary>
+        public List<string> SlideImages { get; set; }
+
+        /// <summary>
         /// 可接受的误差范围
         /// </summary>
         public int AcceptableDeviation { get; set; }

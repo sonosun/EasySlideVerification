@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Api\" />
-    <Folder Include="wwwroot\slider\" />
   </ItemGroup>
 
 </Project>

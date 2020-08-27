@@ -1,0 +1,64 @@
+﻿.slider-panel {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.slider {
+    background-color: #e4e7ed;
+    padding: 4px 0;
+    margin: 10px 0;
+    height: 0;
+    width: 100%;
+}
+
+.slider-button {
+    position: absolute;
+    display: block;
+    text-align: center;
+    width: 40px;
+    height: 20px;
+    user-select: none;
+    cursor: pointer;
+    margin-top: -26px;
+}
+
+.slider-button-inner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #409eff;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.cover {
+    position: absolute;
+}
+
+.success {
+    animation: slider 0.6s;
+    -webkit-animation: slider 0.6s;
+    background-color: #42b983;
+}
+
+@keyframes slider {
+    from {
+        background-color: #e4e7ed;
+    }
+
+    to {
+        background-color: #42b983;
+    }
+}
+
+@-webkit-keyframes myfirst /* Safari 与 Chrome */
+{
+    from {
+        background-color: #e4e7ed;
+    }
+
+    to {
+        background-color: #42b983;
+    }
+}

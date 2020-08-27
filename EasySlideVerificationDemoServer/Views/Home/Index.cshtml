@@ -3,5 +3,51 @@
 }
 
 <div class="text-center">
-   
+    <div id="home" class="home" style="text-align:center;">
+        <h1>Hello World</h1>
+        <slider :loadDataFunc="loadData" :verifyFunc="verifyData"></slider>
+    </div>
 </div>
+@section Style{
+    <link rel="stylesheet" href="~/slider/slider.css" />
+}
+@section Scripts{
+    <script src="~/slider/slider.js"></script>
+    <script type="text/javascript">
+        var slider = new Slider($("#home"), loadData, verifyData);
+        
+        //加载数据，这个函数要slider组件回调
+        function loadData(callback) {
+            $.ajax({
+                url: "/home/getVerification",
+                type: "GET",
+                dataType: "JSON",
+                success: function (response) {
+                    if (callback) {
+                        callback(response);
+                    }
+                }
+            });
+        }
+        //校验结果，这个函数要slider组件回调
+        function verifyData(param, callback) {
+            $.ajax({
+                url: "/home/verify",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(param),
+                success: function (response) {
+                    if (callback) {
+                        callback(response);
+                    }
+                    if (response == true) {
+                        window.setTimeout(function () {
+                            //添加后续处理逻辑
+                        }, 2000);
+                    }
+                }
+            });
+        }
+
+    </script>
+}
