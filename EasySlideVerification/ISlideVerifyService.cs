@@ -16,7 +16,7 @@ namespace EasySlideVerification
         SlideVerificationInfo Create();
 
         /// <summary>
-        /// 
+        /// 验证结果
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>

@@ -7,8 +7,11 @@ namespace EasySlideVerification.ImageProvider
     /// <summary>
     /// 
     /// </summary>
-    public class SlideLocalImageService : LocalImageProviderBase, IImageService
+    public class SlideLocalImageService : LocalImageProviderBase, ISlideImageService
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected override string ImageNameFormat { get { return "slide-*.png"; } }
     }
 }

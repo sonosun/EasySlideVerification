@@ -1,0 +1,599 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EasySlideVerification</name>
+    </assembly>
+    <members>
+        <member name="T:EasySlideVerification.Common.ImageUtil">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.Common.ImageUtil.GetImage(System.Byte[])">
+            <summary>
+            byte数组转Image
+            </summary>
+            <param name="imageByteArr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.ImageUtil.ImageToByteArr(System.Drawing.Image,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Image转Byte数组
+            </summary>
+            <param name="sourceImage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.ImageUtil.ImageToBase64(System.Drawing.Image,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Image转base64
+            </summary>
+            <param name="sourceImage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.ImageUtil.ImageToBase64(System.Byte[],System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Image转base64
+            </summary>
+            <param name="sourceImage"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EasySlideVerification.Common.SlideVerificationCreater">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.Common.SlideVerificationCreater.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.Common.SlideVerificationCreater.Create(EasySlideVerification.Model.SlideVerificationParam)">
+            <summary>
+            创建图片滑动数据
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.Common.SlideVerificationCreater.DrawBackground(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            画背景图
+            </summary>
+            <param name="sourceImage"></param>
+            <param name="coverImage"></param>
+            <param name="positionX"></param>
+            <param name="positionY"></param>
+            <param name="mixedCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.SlideVerificationCreater.DrawMix(System.Drawing.Image,System.Drawing.Image,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            画混淆图
+            </summary>
+            <param name="sourceImage"></param>
+            <param name="mixImage"></param>
+            <param name="count"></param>
+            <param name="slidePositionX"></param>
+            <param name="slidePositionY"></param>
+        </member>
+        <member name="M:EasySlideVerification.Common.SlideVerificationCreater.CaptureImage(System.Drawing.Image,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            从大图中截取一部分图片
+            </summary>
+            <param name="fromImage">来源图片</param>        
+            <param name="offsetX">从偏移X坐标位置开始截取</param>
+            <param name="offsetY">从偏移Y坐标位置开始截取</param>
+            <param name="width">保存图片的宽度</param>
+            <param name="height">保存图片的高度</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.SlideVerificationCreater.CaptureImage(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Int32,System.Int32)">
+            <summary>
+            从大图中根据像素点，生成图片，作为拼图块
+            </summary>
+            <param name="backgroudImage"></param>
+            <param name="coverImage"></param>
+            <param name="offsetX"></param>
+            <param name="offsetY"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EasySlideVerification.Common.StringExtension">
+            <summary>
+            字符串扩展方法
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.IsEmpty(System.String)">
+            <summary>
+            是否为空
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.IsNotEmpty(System.String)">
+            <summary>
+            是否非空
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.ToDecimal(System.String)">
+            <summary>
+            转换为decimal类型
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.ToInt(System.String)">
+            <summary>
+            转换为int类型
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.ToLong(System.String)">
+            <summary>
+            转换为long类型
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.ToDateTime(System.String)">
+            <summary>
+            转换为DateTime类型
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.ToBase64Str(System.String)">
+            <summary>
+            转换为Base64编码字符串
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.FromBase64Str(System.String)">
+            <summary>
+            Base64解码字符串
+            </summary>
+            <param name="val"></param>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.FormatWith(System.String,System.Object)">
+            <summary>
+            字符串模板填充
+            </summary>
+            <param name="format"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.FormatWith(System.String,System.Object[])">
+            <summary>
+            字符串模板填充
+            </summary>
+            <param name="format"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.Mix(System.String)">
+            <summary>
+            混淆替换字符串,如银行账户
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Common.StringExtension.MixWord(System.String,System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="val">待处理字符串</param>
+            <param name="showCount">在字符串两端，可见的字符数.</param>
+            <param name="mixedWord">用于隐藏替代的字符串.例如：*</param>
+            <returns></returns>
+        </member>
+        <member name="T:EasySlideVerification.SlideVerificationExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.SlideVerificationExtension.AddSlideVerification(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{EasySlideVerification.SlideVerificationOptions})">
+            <summary>
+            注册校验模块
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:EasySlideVerification.SlideVerificationExtension.AddSlideVerification(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{EasySlideVerification.SlideVerificationRedisOptions},System.Action{EasySlideVerification.SlideVerificationOptions})">
+            <summary>
+            注册校验模块,使用Redis存储
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:EasySlideVerification.SlideVerificationOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:EasySlideVerification.SlideVerificationOptions.Default">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.SlideVerificationOptions.AcceptableDeviation">
+            <summary>
+            可接受的误差范围
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.SlideVerificationOptions.Edge">
+            <summary>
+            右边框距离(防止由于太靠近右侧，滑动按钮无法到达）
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.SlideVerificationOptions.MixedCount">
+            <summary>
+            混淆点数量
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.SlideVerificationOptions.Expire">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="T:EasySlideVerification.SlideVerificationRedisOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.SlideVerificationRedisOptions.Connection">
+            <summary>
+            redis链接，如：127.0.0.1:6379
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.SlideVerificationRedisOptions.DatabaseIndex">
+            <summary>
+            redis库索引(默认为：0)
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.SlideVerificationRedisOptions.KeyPrefix">
+            <summary>
+            redis缓存key前缀，起到对缓存项分组的作用。可以为空，但建议使用 slide:
+            </summary>
+        </member>
+        <member name="T:EasySlideVerification.ImageProvider.BackgroundLocalImageService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.ImageProvider.BackgroundLocalImageService.ImageNameFormat">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EasySlideVerification.ImageProvider.IImageService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.ImageProvider.IImageService.GetRandomOne">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.ImageProvider.IImageService.Load">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EasySlideVerification.ImageProvider.ISlideImageService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EasySlideVerification.ImageProvider.IBackgroundImageService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:EasySlideVerification.ImageProvider.LocalImageProviderBase.random">
+            <summary>
+            随机数
+            </summary>
+        </member>
+        <member name="F:EasySlideVerification.ImageProvider.LocalImageProviderBase.Images">
+            <summary>
+            图片列表
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.ImageProvider.LocalImageProviderBase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.ImageProvider.LocalImageProviderBase.GetRandomOne">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.ImageProvider.LocalImageProviderBase.Load">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EasySlideVerification.ImageProvider.SlideLocalImageService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.ImageProvider.SlideLocalImageService.ImageNameFormat">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EasySlideVerification.ISlideVerifyService">
+            <summary>
+            滑块校验
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.ISlideVerifyService.Create">
+            <summary>
+            创建图片滑动数据(图片以byte数组格式返回)
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.ISlideVerifyService.Validate(EasySlideVerification.Model.VerifyParam)">
+            <summary>
+            验证结果
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EasySlideVerification.Model.SlideVerificationInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationInfo.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationInfo.BackgroundImg">
+            <summary>
+            背景图片（byte数组图片数据）
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationInfo.SlideImg">
+            <summary>
+            滑块图片（byte数组图片数据）
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationInfo.PositionX">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationInfo.PositionY">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationInfo.BgHeight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationInfo.BgWidth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationInfo.SlideHeight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationInfo.SlideWidth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EasySlideVerification.Model.SlideVerificationParam">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationParam.BackgroundImage">
+            <summary>
+            背景图片原图
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationParam.SlideImage">
+            <summary>
+            滑块图
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationParam.Edge">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationParam.MixedCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EasySlideVerification.Model.SlideVerificationPlainInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationPlainInfo.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationPlainInfo.BackgroundImg">
+            <summary>
+            背景图片
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationPlainInfo.SlideImg">
+            <summary>
+            滑块图片
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationPlainInfo.PositionX">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationPlainInfo.PositionY">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationPlainInfo.BgHeight">
+            <summary>
+            背景图片高度
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationPlainInfo.BgWidth">
+            <summary>
+            背景图片宽度
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationPlainInfo.SlideHeight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.SlideVerificationPlainInfo.SlideWidth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.Model.SlideVerificationPlainInfo.From(EasySlideVerification.Model.SlideVerificationInfo)">
+            <summary>
+            对象拷贝
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EasySlideVerification.Model.VerifyParam">
+            <summary>
+            校验参数
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.VerifyParam.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.VerifyParam.PositionX">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.VerifyParam.PositionY">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EasySlideVerification.Model.VerifyParam.RemoveIfSuccess">
+            <summary>
+            是否校验成功后移除缓存
+            由于一个验证可能需要进行两次校验，所以，第一次验证成功不能移除缓存数据，第二次验证成功后移除缓存数据，防止前端反复使用一个验证数据
+            </summary>
+        </member>
+        <member name="T:EasySlideVerification.SlideVerifyService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.SlideVerifyService.Create">
+            <summary>
+            创建图片滑动数据
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.SlideVerifyService.Validate(EasySlideVerification.Model.VerifyParam)">
+            <summary>
+            验证结果
+            </summary>
+            <param name="key"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EasySlideVerification.Store.ISlideVerificationStore">
+            <summary>
+            校验数据保存接口
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.Store.ISlideVerificationStore.Add(EasySlideVerification.Model.SlideVerificationInfo,System.TimeSpan)">
+            <summary>
+            保存
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.Store.ISlideVerificationStore.Get(System.String)">
+            <summary>
+            获取
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Store.ISlideVerificationStore.Remove(System.String)">
+            <summary>
+            移除
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EasySlideVerification.Store.VerificationInMemoryStore">
+            <summary>
+            内存存储校验数据
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.Store.VerificationInMemoryStore.Add(EasySlideVerification.Model.SlideVerificationInfo,System.TimeSpan)">
+            <summary>
+            添加
+            </summary>
+            <param name="data"></param>
+            <param name="expire"></param>
+        </member>
+        <member name="M:EasySlideVerification.Store.VerificationInMemoryStore.Get(System.String)">
+            <summary>
+            获取
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Store.VerificationInMemoryStore.Remove(System.String)">
+            <summary>
+            移除
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EasySlideVerification.Store.VerificationInRedisStore">
+            <summary>
+            Redis存储校验数据
+            </summary>
+        </member>
+        <member name="M:EasySlideVerification.Store.VerificationInRedisStore.Add(EasySlideVerification.Model.SlideVerificationInfo,System.TimeSpan)">
+            <summary>
+            添加
+            </summary>
+            <param name="data"></param>
+            <param name="expire"></param>
+        </member>
+        <member name="M:EasySlideVerification.Store.VerificationInRedisStore.Get(System.String)">
+            <summary>
+            获取
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasySlideVerification.Store.VerificationInRedisStore.Remove(System.String)">
+            <summary>
+            移除
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

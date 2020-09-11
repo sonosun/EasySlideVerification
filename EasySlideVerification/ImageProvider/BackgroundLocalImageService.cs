@@ -7,8 +7,11 @@ namespace EasySlideVerification.ImageProvider
     /// <summary>
     /// 
     /// </summary>
-    public class BackgroundLocalImageService : LocalImageProviderBase, IImageService
+    public class BackgroundLocalImageService : LocalImageProviderBase, IBackgroundImageService
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected override string ImageNameFormat { get { return "bg-*.jpg"; } }
     }
 }
