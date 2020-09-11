@@ -44,7 +44,7 @@ namespace EasySlideVerification.ImageProvider
         public void Load()
         {
             string workDir = Directory.GetCurrentDirectory();
-            string imageDir = $"{workDir}\\App_Data\\Images\\Slide";
+            string imageDir = $"{workDir}{Path.DirectorySeparatorChar}App_Data{Path.DirectorySeparatorChar}Images{Path.DirectorySeparatorChar}Slide";
             if (!Directory.Exists(imageDir))
             {
                 throw new DirectoryNotFoundException($"图片路径：{imageDir} 不存在.");
