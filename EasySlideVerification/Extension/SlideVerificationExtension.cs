@@ -1,4 +1,5 @@
-﻿using EasySlideVerification.Store;
+﻿using EasySlideVerification.ImageProvider;
+using EasySlideVerification.Store;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,9 @@ namespace EasySlideVerification
             services.AddSingleton(typeof(ISlideVerifyService), typeof(SlideVerifyService));
             services.AddSingleton(typeof(ISlideVerificationStore), typeof(VerificationInMemoryStore));
 
+            services.AddSingleton(typeof(IBackgroundImageService), typeof(BackgroundLocalImageService));
+            services.AddSingleton(typeof(ISlideImageService), typeof(SlideLocalImageService));
+
             if (options != null)
             {
                 options.Invoke(SlideVerificationOptions.Default);
@@ -37,6 +41,9 @@ namespace EasySlideVerification
             services.AddHttpClient();
             services.AddSingleton(typeof(ISlideVerifyService), typeof(SlideVerifyService));
             services.AddSingleton(typeof(ISlideVerificationStore), typeof(VerificationInRedisStore));
+
+            services.AddSingleton(typeof(IBackgroundImageService), typeof(BackgroundLocalImageService));
+            services.AddSingleton(typeof(ISlideImageService), typeof(SlideLocalImageService));
 
             if (redisOptions != null)
             {

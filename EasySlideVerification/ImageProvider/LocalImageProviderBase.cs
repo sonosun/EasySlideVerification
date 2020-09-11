@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace EasySlideVerification.Common
+namespace EasySlideVerification.ImageProvider
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class BackgroundImageProvider
+    public abstract class LocalImageProviderBase
     {
+        //图片名称
+        abstract protected string ImageNameFormat { get; }
+
+        /// <summary>
+        /// 随机数
+        /// </summary>
+        Random random = new Random();
+
+        /// <summary>
+        /// 图片列表
+        /// </summary>
         List<byte[]> Images = new List<byte[]>();
 
-        private BackgroundImageProvider()
+        /// <summary>
+        /// 
+        /// </summary>
+        public LocalImageProviderBase()
         {
             this.Load();
         }
-
-        public static readonly BackgroundImageProvider Instance = new BackgroundImageProvider();
 
         /// <summary>
         /// 
@@ -25,7 +34,6 @@ namespace EasySlideVerification.Common
         /// <returns></returns>
         public byte[] GetRandomOne()
         {
-            Random random = new Random();
             int index = random.Next(this.Images.Count);
             return this.Images[index];
         }
@@ -33,12 +41,16 @@ namespace EasySlideVerification.Common
         /// <summary>
         /// 
         /// </summary>
-        private void Load()
+        public void Load()
         {
             string workDir = Directory.GetCurrentDirectory();
             string imageDir = $"{workDir}\\App_Data\\Images\\Slide";
-            string[] files = Directory.GetFiles(imageDir, "bg-*.jpg");
+            if (!Directory.Exists(imageDir))
+            {
+                throw new DirectoryNotFoundException($"图片路径：{imageDir} 不存在.");
+            }
 
+            string[] files = Directory.GetFiles(imageDir, ImageNameFormat);
             for (int i = 0; i < files.Length; i++)
             {
                 using (Stream stream = new FileStream(files[i], FileMode.Open, FileAccess.Read))

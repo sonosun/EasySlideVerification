@@ -1,4 +1,5 @@
 ﻿using EasySlideVerification.Common;
+using EasySlideVerification.ImageProvider;
 using EasySlideVerification.Model;
 using EasySlideVerification.Store;
 using System;
@@ -18,13 +19,19 @@ namespace EasySlideVerification
     {
         IHttpClientFactory httpClientFactory;
         ISlideVerificationStore store;
+        IBackgroundImageService backgrouondImageService;
+        ISlideImageService slideImageService;
 
         public SlideVerifyService(
             IHttpClientFactory httpClientFactory,
-            ISlideVerificationStore store)
+            ISlideVerificationStore store,
+            IBackgroundImageService backgrouondImageService,
+            ISlideImageService slideImageService)
         {
             this.httpClientFactory = httpClientFactory;
             this.store = store;
+            this.backgrouondImageService = backgrouondImageService;
+            this.slideImageService = slideImageService;
         }
 
         /// <summary>
@@ -34,8 +41,8 @@ namespace EasySlideVerification
         {
             SlideVerificationParam param = new SlideVerificationParam()
             {
-                BackgroundImage = BackgroundImageProvider.Instance.GetRandomOne(),
-                SlideImage = SlideImageProvider.Instance.GetRandomOne(),
+                BackgroundImage = this.backgrouondImageService.GetRandomOne(),
+                SlideImage = this.slideImageService.GetRandomOne(),
                 Edge = SlideVerificationOptions.Default.Edge,
                 MixedCount = SlideVerificationOptions.Default.MixedCount,
             };

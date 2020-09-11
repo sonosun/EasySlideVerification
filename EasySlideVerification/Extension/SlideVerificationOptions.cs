@@ -18,15 +18,15 @@ namespace EasySlideVerification
             Expire = new TimeSpan(0, 10, 0),
         };
 
-        /// <summary>
-        /// 背景图
-        /// </summary>
-        public List<string> BackgroundImages { get; set; }
+        ///// <summary>
+        ///// 背景图
+        ///// </summary>
+        //public List<string> BackgroundImages { get; set; }
 
-        /// <summary>
-        /// 滑块图
-        /// </summary>
-        public List<string> SlideImages { get; set; }
+        ///// <summary>
+        ///// 滑块图
+        ///// </summary>
+        //public List<string> SlideImages { get; set; }
 
         /// <summary>
         /// 可接受的误差范围
