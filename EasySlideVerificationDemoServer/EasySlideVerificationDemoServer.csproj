@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EasySlideVerification" Version="1.0.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.4.10" />
@@ -14,10 +15,6 @@
 
   <ItemGroup>
     <Folder Include="Api\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\EasySlideVerification\EasySlideVerification.csproj" />
   </ItemGroup>
 
   <ItemGroup>
